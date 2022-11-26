@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { getFilter } from '../../redux/contactSlice';
-import { useGetContactsQuery, useDeleteContactMutation } from '../../redux/contactsApi';
+import { useGetContactsQuery } from '../../redux/contactsApi';
 import { ListItem } from '../ListItem/ListItem'
 import { ContactList, Message } from './List.styled';
 
