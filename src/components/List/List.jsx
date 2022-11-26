@@ -1,14 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilter, deleteContact } from '../../redux/contactSlice';
+import { useSelector } from 'react-redux';
+import { getFilter } from '../../redux/contactSlice';
+import { useGetContactsQuery, useDeleteContactMutation } from '../../redux/contactsApi';
 import { ListItem } from '../ListItem/ListItem'
 import { ContactList, Message } from './List.styled';
 
 export const List = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
-
-  const onDeleteContact = contactId => dispatch(deleteContact(contactId));
+  const { data: contacts = [] } = useGetContactsQuery();
+  const { filter } = useSelector(state => getFilter(state));
 
   const getVisibleContact = () => {
     return contacts.filter(contact =>
@@ -28,11 +26,10 @@ export const List = () => {
               contactId={id}
               name={name}
               number={number}
-              onClickRemove={onDeleteContact}
             />
           );
         })
-      ) : (<Message>Нема нічого</Message>
+      ) : (<Message>Не знайдено нічого</Message>
       )}
     </ContactList>
   )

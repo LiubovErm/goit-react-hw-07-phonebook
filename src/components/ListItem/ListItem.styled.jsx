@@ -13,7 +13,7 @@ export const TextName = styled.p`
 
 export const Button = styled.button`
   cursor: pointer;  
-  width: 180px;
+  width: 130px;
   margin-left: ${props => props.theme.space[3]}px;
   border-radius: ${props => props.theme.radii.normal};
   border: none;

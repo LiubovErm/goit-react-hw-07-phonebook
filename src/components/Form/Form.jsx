@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, addContact } from '../../redux/contactSlice';
+import { useGetContactsQuery, useAddContactMutation } from '../../redux/contactsApi';
 import { Box } from '../Box/Box';
 import { Label, Input, Button } from './Form.styled';
 import { nanoid } from 'nanoid'
 import Notiflix from 'notiflix';
+
 
 export function Form () {
   const [name, setName] = useState('');
@@ -13,8 +13,8 @@ export function Form () {
   const nameInputId = nanoid();
   const telInputId = nanoid();
 
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const { data: contacts } = useGetContactsQuery();
+  const [addContact] = useAddContactMutation();
  
   const handleChange = event => {
     const { name, value } = event.currentTarget;
@@ -37,11 +37,13 @@ export function Form () {
       name,
       number,
     }
-
-    contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase())
-      ? Notiflix.Notify.failure(`${name} is already in contacts`)
-      : dispatch(addContact(newContact));
-    
+    if (contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {
+      Notiflix.Notify.failure(`${name} is already in contacts`)
+    } else {
+      addContact(newContact);
+      Notiflix.Notify.success(`Добавлено`)
+    }
+ 
     reset();
   };
 
