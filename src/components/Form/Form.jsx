@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useGetContactsQuery, useAddContactMutation } from '../../redux/contactsApi';
 import { Box } from '../Box/Box';
-import { Label, Input, Button } from './Form.styled';
+import { Label, Input, Button, Icon } from './Form.styled';
 import { nanoid } from 'nanoid'
 import Notiflix from 'notiflix';
-
 
 export function Form () {
   const [name, setName] = useState('');
@@ -84,7 +83,7 @@ export function Form () {
             autoComplete='off'
           />
         </Label>
-        <Button type="submit">Add contact</Button>
+        <Button type="submit">Add contact<Icon/></Button>
       </Box>
     );
   }

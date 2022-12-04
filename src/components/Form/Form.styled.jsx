@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ImPlus } from "react-icons/im";
 
 export const Label = styled.label`
   display: flex;
@@ -14,6 +15,8 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   cursor: pointer;  
+  display:flex;
+  justify-content:center;
   width: 180px;
   border: none;
   border-radius: ${props => props.theme.radii.normal};
@@ -26,4 +29,8 @@ export const Button = styled.button`
   :focus {
     box-shadow: ${props => props.theme.shadows.normal};
   }
+`;
+
+export const Icon = styled(ImPlus)`
+  margin-left: 10px;
 `;
