@@ -2,24 +2,27 @@ import { useSelector } from 'react-redux';
 import { getFilter } from '../../redux/contactSlice';
 import { useGetContactsQuery } from '../../redux/contactsApi';
 import { ListItem } from '../ListItem/ListItem'
-import { ContactList, Message } from './List.styled';
+import { ContactList} from './List.styled';
+import { useMemo } from 'react';
 
 export const List = () => {
   const { data: contacts = [] } = useGetContactsQuery();
+  const { isLoading } = useGetContactsQuery();
   const { filter } = useSelector(state => getFilter(state));
 
-  const getVisibleContact = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
+  const visibleContact = useMemo(() => {
+    return (
+        contacts?.filter(contact =>
+          contact.name.toLowerCase().includes(filter.toLowerCase())
+        ) ?? []
     );
-  };
-
-  const visibleContact = getVisibleContact();
+}, [filter, contacts]);
 
   return (
+    <>
     <ContactList>
-      {visibleContact.length > 0 ? (
-        visibleContact.map(({ id, name, number }) => {
+    {isLoading ? (<p> Loading... </p>) : 
+      (visibleContact.map(({ id, name, number }) => {
           return (
             <ListItem
               key={id}
@@ -29,8 +32,9 @@ export const List = () => {
             />
           );
         })
-      ) : (<Message>Не знайдено нічого</Message>
-      )}
+      ) 
+      }
     </ContactList>
+   </>
   )
 };

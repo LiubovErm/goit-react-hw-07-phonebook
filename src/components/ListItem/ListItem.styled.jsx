@@ -36,18 +36,3 @@ export const ButtonDelete = styled.button`
   }
 `;
 
-export const ButtonEdit = styled.button`
-  cursor: pointer;  
-  width:30px;
-  height:30px;
-  border-radius: ${props => props.theme.radii.round};
-  border: none;
-  margin-left:  ${props => props.theme.space[3]}px;
-  padding: ${props => props.theme.space[3]}px;
-  background-color:${props => props.theme.colors.orange};
-  color:${props => props.theme.colors.white};
-  :hover,
-  :focus {
-    box-shadow: ${props => props.theme.shadows.normal};
-  }
-`;

@@ -13,7 +13,7 @@ export function Form () {
   const telInputId = nanoid();
 
   const { data: contacts } = useGetContactsQuery();
-  const [addContact] = useAddContactMutation();
+  const [addContact, { isLoading }] = useAddContactMutation();
  
   const handleChange = event => {
     const { name, value } = event.currentTarget;
@@ -83,7 +83,7 @@ export function Form () {
             autoComplete='off'
           />
         </Label>
-        <Button type="submit">Add contact<Icon/></Button>
+        <Button type="submit"disabled={isLoading} >Add contact<Icon/></Button>
       </Box>
     );
   }
